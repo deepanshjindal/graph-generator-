@@ -3,6 +3,7 @@
 
 
 
+
 import java.util.ArrayList;
 import java.util.Vector;
 
@@ -14,17 +15,17 @@ import java.util.Scanner;
 import java.util.Iterator;
 import java.io.*;
 
-public class A4_2019EE10474 implements Comparable<A4_2019EE10474>{
+public class Graph_generator implements Comparable<Graph_generator>{
 
 	String name;
 	int value;
-	public A4_2019EE10474(String s , int x) {
+	public Graph_generator(String s , int x) {
 		this.name = s;
 		this.value = x;
 		
 	}
 	@Override
-	public int compareTo(A4_2019EE10474 o) {
+	public int compareTo(Graph_generator o) {
 		// TODO Auto-generated method stub
 		if(this.value > o.value) {
 			return 1;}
@@ -43,7 +44,7 @@ public class A4_2019EE10474 implements Comparable<A4_2019EE10474>{
 		String nodeaddress=args[0];
 				String edgeaddress =args[1];
 				
-		HashMap<String, LinkedList<A4_2019EE10474>> hashmap = new HashMap<String, LinkedList<A4_2019EE10474>>();
+		HashMap<String, LinkedList<Graph_generator>> hashmap = new HashMap<String, LinkedList<Graph_generator>>();
 		File csvfile = new File(nodeaddress);
 		BufferedReader br = new BufferedReader(new FileReader(csvfile));
 		String line  = "";
@@ -97,7 +98,7 @@ public class A4_2019EE10474 implements Comparable<A4_2019EE10474>{
 				
 				//System.out.println(a);
 					//csvread c1= new csvread(a,-1);
-					LinkedList<A4_2019EE10474> l = new LinkedList<>();
+					LinkedList<Graph_generator> l = new LinkedList<>();
 					//l.add(c1);
 					
 					
@@ -132,11 +133,11 @@ public class A4_2019EE10474 implements Comparable<A4_2019EE10474>{
 				String first = count2[0].replaceAll("^\"+|\"+$", "");
 				String second = count2[1].replaceAll("^\"+|\"+$", "");
 				int weight = Integer.parseInt(count2[2]);
-				LinkedList<A4_2019EE10474> list1 = hashmap.get(first);
-				LinkedList<A4_2019EE10474> list2 = hashmap.get(second);
-				A4_2019EE10474 temp1 = new A4_2019EE10474(second , weight);
+				LinkedList<Graph_generator> list1 = hashmap.get(first);
+				LinkedList<Graph_generator> list2 = hashmap.get(second);
+				Graph_generator temp1 = new Graph_generator(second , weight);
 				list1.add(temp1);
-				A4_2019EE10474 temp2 = new A4_2019EE10474(first , weight);
+				Graph_generator temp2 = new Graph_generator(first , weight);
 				list2.add(temp2);
 //				String first ="a";
 //				String second = "b";
@@ -330,14 +331,14 @@ public class A4_2019EE10474 implements Comparable<A4_2019EE10474>{
 		
 	}
 	
-	public static void average(HashMap<String, LinkedList<A4_2019EE10474>> hashmap){
+	public static void average(HashMap<String, LinkedList<Graph_generator>> hashmap){
 		int sum = 0;
 		int nodes = 0;
 		
-		for (Map.Entry<String, LinkedList<A4_2019EE10474>> set : hashmap.entrySet()) {
+		for (Map.Entry<String, LinkedList<Graph_generator>> set : hashmap.entrySet()) {
 			nodes++;
 			String key = set.getKey();
-			LinkedList<A4_2019EE10474> x = hashmap.get(key);
+			LinkedList<Graph_generator> x = hashmap.get(key);
 			int size = x.size();
 			sum = sum+size;
 		}
@@ -355,16 +356,16 @@ public class A4_2019EE10474 implements Comparable<A4_2019EE10474>{
 	}
 	
 
-	public static void independent_storylines_dfs(HashMap<String, LinkedList<A4_2019EE10474>> hashmap) {
+	public static void independent_storylines_dfs(HashMap<String, LinkedList<Graph_generator>> hashmap) {
 		
 		HashMap<String, Integer> visitcheck = new HashMap<>();
-		for (Map.Entry<String, LinkedList<A4_2019EE10474>> set : hashmap.entrySet()) {
+		for (Map.Entry<String, LinkedList<Graph_generator>> set : hashmap.entrySet()) {
 			String key = set.getKey();
 			visitcheck.put(key, 0);			
 			
 		}
 		int indcount = 0;
-		for (Map.Entry<String, LinkedList<A4_2019EE10474>> set : hashmap.entrySet()) {
+		for (Map.Entry<String, LinkedList<Graph_generator>> set : hashmap.entrySet()) {
 			String key = set.getKey();
 			if(visitcheck.get(key) == 0) {
 			indcount++;
@@ -535,7 +536,7 @@ public class A4_2019EE10474 implements Comparable<A4_2019EE10474>{
 		
 	}
 	
-	public static void markvisited(HashMap<String, Integer> visitcheck, HashMap<String, LinkedList<A4_2019EE10474>> hashmap, int indcount , String key) {
+	public static void markvisited(HashMap<String, Integer> visitcheck, HashMap<String, LinkedList<Graph_generator>> hashmap, int indcount , String key) {
 		
 	for(int i = 0 ; i <hashmap.get(key).size() ; i++) {
 		String temp = hashmap.get(key).get(i).name;
@@ -552,19 +553,19 @@ public class A4_2019EE10474 implements Comparable<A4_2019EE10474>{
 	}
 	
 	
-	public static void rank(HashMap<String , LinkedList<A4_2019EE10474>> hashmap) {
+	public static void rank(HashMap<String , LinkedList<Graph_generator>> hashmap) {
 		
-		ArrayList<A4_2019EE10474> sort = new ArrayList<>();
+		ArrayList<Graph_generator> sort = new ArrayList<>();
 	
-		for (Map.Entry<String, LinkedList<A4_2019EE10474>> set : hashmap.entrySet()) {
+		for (Map.Entry<String, LinkedList<Graph_generator>> set : hashmap.entrySet()) {
 			int cooccur =0;
 			String key = set.getKey();
-			LinkedList<A4_2019EE10474> x = hashmap.get(key);
+			LinkedList<Graph_generator> x = hashmap.get(key);
 			for(int i = 0 ; i<x.size();i++) {
 				cooccur = cooccur + x.get(i).value;
 				}
 			//System.out.println(cooccur);
-			A4_2019EE10474 z = new A4_2019EE10474(key,cooccur);
+			Graph_generator z = new Graph_generator(key,cooccur);
 			sort.add(z);
 			
 			
@@ -583,14 +584,14 @@ public class A4_2019EE10474 implements Comparable<A4_2019EE10474>{
 	System.out.println();
 	}
 		
-		public static void quicksort(ArrayList<A4_2019EE10474> list , int a , int b) {
+		public static void quicksort(ArrayList<Graph_generator> list , int a , int b) {
 			if(a>=b) {
 				return;
 			}
 			int i = a;
 			int j = b;
 			int pivotindex = (j+i)/2;
-			A4_2019EE10474 pivot = list.get(pivotindex);
+			Graph_generator pivot = list.get(pivotindex);
 			
 			while(i<=j) {
 				while( list.get(i).compareTo(pivot) >0 ) {
@@ -617,9 +618,9 @@ public class A4_2019EE10474 implements Comparable<A4_2019EE10474>{
 			
 		}
 	
-		public static void swap(ArrayList<A4_2019EE10474> list , int i , int j) {
+		public static void swap(ArrayList<Graph_generator> list , int i , int j) {
 			
-			A4_2019EE10474 temp = list.get(i);
+			Graph_generator temp = list.get(i);
 			list.set(i, list.get(j));
 			list.set(j, temp);
 		}
